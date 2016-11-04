@@ -41,9 +41,63 @@ function formValidation() {
     }
 }
 
-// let apiKeys = {};
-// let uid = "";
 
+
+let familyMembers = {};
+let apiKeys = {};
+let uid = "";
+
+$(document).ready(function() {
+    // get firebase credentials from apiKeys.json
+    fbCredentials.credentials().then(function(keys) {
+        apiKeys = keys;
+        console.log("apiKeys", apiKeys);
+        firebase.initializeApp(apiKeys);
+        getFamilyMembers(apiKeys);
+    });
+
+    function getFamilyMembers(apiKeys) {
+        todos.getTodo(apiKeys).then(function(fbFamily) {
+            familyMembers = fbFamily;
+            putFamilyMembersInDom(familyMembers);
+        });
+    }
+
+    function putFamilyMembersInDom(data) {
+        console.log("data", data);
+        let $output = $('#output');
+        // Add Each Family Member to the dom
+        let outputString = "";
+        data.forEach(function(member) {
+            outputString += "<div class='row'>";
+            outputString += `<div class="col-xs-6 col-md-4">${member.name}</div>`;
+            outputString += `<div class="col-xs-6 col-md-4">${member.age}</div>`;
+            outputString += `<div class="col-xs-6 col-md-4">${member.gender}</div>`;
+
+                // outputString += `<td>${member.name}</td>`;
+                // outputString += `<td>${member.age}</td>`;
+                // outputString += `<td>${member.gender}</td>`;
+        });
+        outputString += "</table>";
+        $('.output').append(outputString);
+        $('.output').append(`<div class="row">
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+</div>`);
+    }
+
+
+
+
+
+
+
+
+
+
+
+});
 // function putTodoInDOM (){
 //     FbAPI.getTodos(apiKeys, uid).then(function(items){
 //         console.log("items from FB", items);
@@ -57,7 +111,7 @@ function formValidation() {
 //                 newListItem+=`<label class="inputLabel">${item.task}</label>`;
 //                 newListItem+='</div>';
 //                 newListItem+='</li>';
-//                 //apend to list
+//                 //append to list
 //                 $('#completed-tasks').append(newListItem);
 //             } else {
 //                 let newListItem = `<li data-completed="${item.isCompleted}">`;
@@ -71,7 +125,7 @@ function formValidation() {
 //                 newListItem+=`<button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button> `;
 //                 newListItem+='</div>';
 //                 newListItem+='</li>';
-//                 //apend to list
+//                 //append to list
 //                 $('#incomplete-tasks').append(newListItem);
 //             }
 
