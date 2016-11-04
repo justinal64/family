@@ -18,17 +18,19 @@
                 <label for="nfm-age" >Age</label>
                 <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" id="nfm-age" placeholder="Age" maxlength="3" value="35"></input>
             </div>
-            <label class="form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male" checked> Male
-            </label>
-            <label class="form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="female"> Female
-            </label>
+            <div class="form-group" id="nfm-gender">
+                <label class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nfm-male" value="male" checked> Male
+                </label>
+                <label class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nfm-female" value="female"> Female
+                </label>
+            </div>
             <div class="form-group">
                 <label for="comment">Special Skills</label>
                 <textarea class="form-control" rows="2" id="nfm-skills" placeholder="(Example) Athletic, Nice, Pretty">Athletic, Nice, Pretty</textarea>
             </div>
-            <button class="btn btn-default" id="nfm-submit">Submit</button>
+            <button class="btn btn-primary" id="nfm-submit">Submit</button>
         </form>
         <div>
             <h2>Family Members</h2>

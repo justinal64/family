@@ -10,21 +10,36 @@ console.log("fbCredentials", fbCredentials);
 console.log("todos", todos);
 console.log("user", user);
 
-let $name = $('#nfm-name').val();
-let $age = $("#nfm-age").val();
-
 // eventListeners
 $("#nfm-submit").on("click", function(event) {
     // Stops the page from refreshing
     event.preventDefault();
-    console.log("$name = ", $name);
-    console.log("$age = ", $age);
+    formValidation();
 });
 
 
-
-
-
+function formValidation() {
+    // Used to show fields that need to be populated
+    // Checked for a name
+    if($('#nfm-name').val() === "") {
+        console.log("Please Enter a value for the name field!!");
+    }
+    // Checks for an age
+    if($("#nfm-age").val() === "") {
+        console.log("Please Enter a value for the age field!!");
+    }
+    // Checks to see if a gender was selected
+    if($("#nfm-male").is(":checked")) {
+        console.log("male is checked!");
+    } else if($("#nfm-female").is(":checked")) {
+        console.log("female is checked!");
+    } else {
+        console.log("Please select a gender");
+    }
+    if($("#nfm-skills").val() === "") {
+        console.log("please enter a value in the skills field!");
+    }
+}
 
 // let apiKeys = {};
 // let uid = "";
