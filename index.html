@@ -2,17 +2,53 @@
 <html>
 <head>
     <title>Family</title>
-    <link rel="stylesheet" type="text/css" href="/lib/node_modules/bootstrap3/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/lib/node_modules/bootstrap3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
-        <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+    <div class="container">
+        <form>
+            <h2>Add New Family Member</h2>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" id="nfm-name" placeholder="Full Name" value="Justin Leggett">
+            </div>
+            <div class="form-group">
+                <label for="nfm-age" >Age</label>
+                <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" id="nfm-age" placeholder="Age" maxlength="3" value="35"></input>
+            </div>
+            <label class="form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male" checked> Male
+            </label>
+            <label class="form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="female"> Female
+            </label>
+            <div class="form-group">
+                <label for="comment">Special Skills</label>
+                <textarea class="form-control" rows="2" id="nfm-skills" placeholder="(Example) Athletic, Nice, Pretty">Athletic, Nice, Pretty</textarea>
+            </div>
+            <button type="submit" class="btn btn-default" id="nfm-submit">Submit</button>
+        </form>
+        <div>
+            <h2>Family Members</h2>
+            <div class="output">
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+        <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
         <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
         <script src="/lib/node_modules/bootstrap3/dist/js/bootstrap.min.js"></script>
-        <script src="/javascript/firebase.js"></script>
-        <script src="/javascript/firebaseMethods.js"></script>
-        <script src="/javascript/firebaseAuth.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/javascript/firebaseUser.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/javascript/main.js"></script>
+        <script src="dist/app.js"></script>
+        <!-- <script src="/javascript/main.js" type="text/javascript" charset="utf-8"></script> -->
 </body>
 </html>

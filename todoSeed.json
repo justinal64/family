@@ -1,0 +1,26 @@
+{
+  "family": [
+    {
+      "name": "john smith",
+      "age": 4,
+      "gender": "male",
+      "skills": [
+        "burping",
+        "farting",
+        "inappropriate shouting",
+        "tantrums"
+      ]
+    },
+    {
+      "name": "jane smith",
+      "age": 2,
+      "gender": "female",
+      "skills": [
+        "mice",
+        "pretty",
+        "inappropriate shouting",
+        "tantrums"
+      ]
+    }
+  ]
+}
