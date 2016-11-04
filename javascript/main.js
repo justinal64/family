@@ -10,6 +10,21 @@ console.log("fbCredentials", fbCredentials);
 console.log("todos", todos);
 console.log("user", user);
 
+let $name = $('#nfm-name').val();
+let $age = $("#nfm-age").val();
+
+// eventListeners
+$("#nfm-submit").on("click", function(event) {
+    // Stops the page from refreshing
+    event.preventDefault();
+    console.log("$name = ", $name);
+    console.log("$age = ", $age);
+});
+
+
+
+
+
 
 // let apiKeys = {};
 // let uid = "";
