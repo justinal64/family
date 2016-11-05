@@ -17,6 +17,20 @@ $("#nfm-submit").on("click", function(event) {
     formValidation();
 });
 
+// eventListener for a button that hasn't been created yet
+$(document).on("click", ".btn-danger", function(event) {
+    // Get the name of the family member that will be removed from the db
+    let id = $(this).closest('div').siblings('#fm-name').data("fbid");
+    console.log("id", id);
+    // .data("fbid")
+
+
+    // Remove the entire row when delete is clicked
+    $(this).closest('div').parent().remove();
+
+    todos.deleteTodo(apiKeys, id);
+});
+
 
 function formValidation() {
     // Used to show fields that need to be populated
@@ -41,15 +55,13 @@ function formValidation() {
     }
 }
 
-
-
 let familyMembers = {};
 let apiKeys = {};
 let uid = "";
 
 $(document).ready(function() {
     // get firebase credentials from apiKeys.json
-    fbCredentials.credentials().then(function(keys) {
+    fbCredentials.firebaseCredentials().then(function(keys) {
         apiKeys = keys;
         console.log("apiKeys", apiKeys);
         firebase.initializeApp(apiKeys);
@@ -57,7 +69,7 @@ $(document).ready(function() {
     });
 
     function getFamilyMembers(apiKeys) {
-        todos.getTodo(apiKeys).then(function(fbFamily) {
+        todos.getTodos(apiKeys).then(function(fbFamily) {
             familyMembers = fbFamily;
             putFamilyMembersInDom(familyMembers);
         });
@@ -70,21 +82,12 @@ $(document).ready(function() {
         let outputString = "";
         data.forEach(function(member) {
             outputString += "<div class='row'>";
-            outputString += `<div class="col-xs-6 col-md-4">${member.name}</div>`;
-            outputString += `<div class="col-xs-6 col-md-4">${member.age}</div>`;
-            outputString += `<div class="col-xs-6 col-md-4">${member.gender}</div>`;
-
-                // outputString += `<td>${member.name}</td>`;
-                // outputString += `<td>${member.age}</td>`;
-                // outputString += `<td>${member.gender}</td>`;
+                outputString += `<div class="col-xs-4 col-md-4" id="fm-name" data-fbid="${member.id}">${member.name}</div>`;
+                outputString += `<div class="col-xs-4 col-md-4">${member.age}</div>`;
+                outputString += `<div class="col-xs-4 col-md-4">${member.gender}<button type="button" class="btn btn-danger fright">Delete</button></div>`;
+            outputString += "</div>";
         });
-        outputString += "</table>";
         $('.output').append(outputString);
-        $('.output').append(`<div class="row">
-  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
-  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
-  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
-</div>`);
     }
 
 
