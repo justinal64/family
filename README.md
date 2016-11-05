@@ -3,7 +3,7 @@
 
 
 ## Description
-In this exercise I am interacting with a firebase database. First I amm family members to the database, then I use a promise to pull data from database and display it in a div.
+In this exercise I am interacting with a firebase database. First I'm adding family members to the database, then I use a promise to pull data from database and display it in a div.
 
 
 ### TO RUN:
