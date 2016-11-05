@@ -1,10 +1,5 @@
 'use strict';
 
-// const registerUser = require("./fbRegisterUser");
-// const loginUser = require("./fbLoginuser");
-// const logoutUser = require("./fbLogoutUser");
-// const credentialsCurrentUser = require("./fbCredentialsCurrentUser");
-
 function loginUser(credentials){
     return new Promise((resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)

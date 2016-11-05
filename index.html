@@ -12,15 +12,15 @@
             <h2>Add New Family Member</h2>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" class="form-control" id="nfm-name" placeholder="Full Name" value="Justin Leggett">
+                <input type="text" class="form-control" id="nfm-name" placeholder="Full Name">
             </div>
             <div class="form-group">
                 <label for="nfm-age" >Age</label>
-                <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" id="nfm-age" placeholder="Age" maxlength="3" value="35"></input>
+                <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" id="nfm-age" placeholder="Age" maxlength="3"></input>
             </div>
             <div class="form-group" id="nfm-gender">
                 <label class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nfm-male" value="male" checked> Male
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nfm-male" value="male"> Male
                 </label>
                 <label class="form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nfm-female" value="female"> Female
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="comment">Special Skills</label>
-                <textarea class="form-control" rows="2" id="nfm-skills" placeholder="(Example) Athletic, Nice, Pretty">Athletic, Nice, Pretty</textarea>
+                <textarea class="form-control" rows="2" id="nfm-skills" placeholder="(Example) Athletic, Nice, Pretty"></textarea>
             </div>
             <button class="btn btn-primary" id="nfm-submit">Submit</button>
         </form>
@@ -38,8 +38,6 @@
 
             </div>
         </div>
-
-
 
     </div>
         <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>

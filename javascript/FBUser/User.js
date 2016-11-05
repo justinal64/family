@@ -1,8 +1,5 @@
 'use strict';
 
-// const addUser = require("./addUser");
-// const getUser = require("./getUser");
-
 function addUser(apiKeys, newUser) {
     return new Promise((resolve, reject) => {
         $.ajax({
