@@ -17,6 +17,20 @@ $("#nfm-submit").on("click", function(event) {
     formValidation();
 });
 
+// eventListener for a button that hasn't been created yet
+$(document).on("click", ".btn-danger", function(event) {
+    // Get the name of the family member that will be removed from the db
+    let id = $(this).closest('div').siblings('#fm-name').data("fbid");
+    console.log("id", id);
+    // .data("fbid")
+
+
+    // Remove the entire row when delete is clicked
+    $(this).closest('div').parent().remove();
+
+    todos.deleteTodo(apiKeys, id);
+});
+
 
 function formValidation() {
     // Used to show fields that need to be populated
@@ -41,9 +55,52 @@ function formValidation() {
     }
 }
 
-// let apiKeys = {};
-// let uid = "";
+let familyMembers = {};
+let apiKeys = {};
+let uid = "";
 
+$(document).ready(function() {
+    // get firebase credentials from apiKeys.json
+    fbCredentials.firebaseCredentials().then(function(keys) {
+        apiKeys = keys;
+        console.log("apiKeys", apiKeys);
+        firebase.initializeApp(apiKeys);
+        getFamilyMembers(apiKeys);
+    });
+
+    function getFamilyMembers(apiKeys) {
+        todos.getTodos(apiKeys).then(function(fbFamily) {
+            familyMembers = fbFamily;
+            putFamilyMembersInDom(familyMembers);
+        });
+    }
+
+    function putFamilyMembersInDom(data) {
+        console.log("data", data);
+        let $output = $('#output');
+        // Add Each Family Member to the dom
+        let outputString = "";
+        data.forEach(function(member) {
+            outputString += "<div class='row'>";
+                outputString += `<div class="col-xs-4 col-md-4" id="fm-name" data-fbid="${member.id}">${member.name}</div>`;
+                outputString += `<div class="col-xs-4 col-md-4">${member.age}</div>`;
+                outputString += `<div class="col-xs-4 col-md-4">${member.gender}<button type="button" class="btn btn-danger fright">Delete</button></div>`;
+            outputString += "</div>";
+        });
+        $('.output').append(outputString);
+    }
+
+
+
+
+
+
+
+
+
+
+
+});
 // function putTodoInDOM (){
 //     FbAPI.getTodos(apiKeys, uid).then(function(items){
 //         console.log("items from FB", items);
@@ -57,7 +114,7 @@ function formValidation() {
 //                 newListItem+=`<label class="inputLabel">${item.task}</label>`;
 //                 newListItem+='</div>';
 //                 newListItem+='</li>';
-//                 //apend to list
+//                 //append to list
 //                 $('#completed-tasks').append(newListItem);
 //             } else {
 //                 let newListItem = `<li data-completed="${item.isCompleted}">`;
@@ -71,7 +128,7 @@ function formValidation() {
 //                 newListItem+=`<button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button> `;
 //                 newListItem+='</div>';
 //                 newListItem+='</li>';
-//                 //apend to list
+//                 //append to list
 //                 $('#incomplete-tasks').append(newListItem);
 //             }
 
