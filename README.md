@@ -10,7 +10,7 @@ In this exercise I am interacting with a firebase database. First I'm adding fam
 * cd lib
     - npm install
     - cd ..
-In your terminal run:
+### In your terminal run:
 ```
 http-server -p 9999
 ```
