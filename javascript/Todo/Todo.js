@@ -1,10 +1,5 @@
 'use strict';
 
-// const addTodo = require("./addTodo");
-// const deleteTodo = require("./deleteTodo");
-// const editTodo = require("./editTodo");
-// const getTodo = require("./getTodo");
-
 function addTodo(apiKeys, newItem){
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -13,7 +8,6 @@ function addTodo(apiKeys, newItem){
             data: JSON.stringify(newItem),
             dataType: 'json'
           }).then((response) => {
-            console.log("response from POST", response);
             resolve(response);
           }, (error) => {
             reject(error);
@@ -27,7 +21,6 @@ function deleteTodo(apiKeys, id){
             method:  'DELETE',
             url:`${apiKeys.databaseURL}/family/${id}.json`
             }).then((response) => {
-            console.log("response from Delete", response);
             resolve(response);
             }, (error) => {
             reject(error);
@@ -43,7 +36,6 @@ function editTodo(apiKeys, itemId, editedItem){
         data: JSON.stringify(editedItem),
         dataType: 'json'
         }).then((response) => {
-        console.log("response from POST", response);
         resolve(response);
         }, (error) => {
             reject(error);

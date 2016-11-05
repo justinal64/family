@@ -1,7 +1,5 @@
 'use strict';
 
-// const credentials = require("./fbCredentials");
-
 function firebaseCredentials() {
     return new Promise((resolve, reject) => {
         $.ajax({
