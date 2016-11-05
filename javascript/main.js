@@ -5,6 +5,11 @@ let fbCredentials = require("./FBCredentials/Credentials");
 let todos = require("./Todo/Todo");
 let user = require("./FBUser/User");
 
+let familyMembers = {};
+let apiKeys = {};
+let uid = "";
+let nfmId = 2;
+
 console.log("fbAuth", fbAuth);
 console.log("fbCredentials", fbCredentials);
 console.log("todos", todos);
@@ -19,21 +24,25 @@ $("#nfm-submit").on("click", function(event) {
 
 // eventListener for a button that hasn't been created yet
 $(document).on("click", ".btn-danger", function(event) {
-    // Get the name of the family member that will be removed from the db
+    // Get the id of the family member that will be removed from the db
     let id = $(this).closest('div').siblings('#fm-name').data("fbid");
-    console.log("id", id);
-    // .data("fbid")
-
-
     // Remove the entire row when delete is clicked
     $(this).closest('div').parent().remove();
-
+    // delete the familymember from the db
     todos.deleteTodo(apiKeys, id);
 });
 
 
 function formValidation() {
     // Used to show fields that need to be populated
+    let nfm = {
+        "id": nfmId,
+        "name": $('#nfm-name').val(),
+        "age" : $("#nfm-age").val(),
+        "gender": "",
+        "skills": $("#nfm-skills").val()
+    };
+
     // Checked for a name
     if($('#nfm-name').val() === "") {
         console.log("Please Enter a value for the name field!!");
@@ -41,66 +50,74 @@ function formValidation() {
     // Checks for an age
     if($("#nfm-age").val() === "") {
         console.log("Please Enter a value for the age field!!");
+        return false;
     }
     // Checks to see if a gender was selected
     if($("#nfm-male").is(":checked")) {
         console.log("male is checked!");
+        nfm.gender = "male";
     } else if($("#nfm-female").is(":checked")) {
         console.log("female is checked!");
+        nfm.gender = "female";
     } else {
         console.log("Please select a gender");
     }
     if($("#nfm-skills").val() === "") {
         console.log("please enter a value in the skills field!");
     }
+    addFamilyMember(nfm);
 }
 
-let familyMembers = {};
-let apiKeys = {};
-let uid = "";
+function addFamilyMember(newFM) {
+    user.addUser(apiKeys, newFM);
+    getFamilyMembers(apiKeys);
+    nfmId++;
+}
+
+function getFamilyMembers(apiKeys) {
+    todos.getTodos(apiKeys).then(function(fbFamily) {
+        familyMembers = fbFamily;
+        putFamilyMembersInDom(familyMembers);
+    });
+}
+
+function putFamilyMembersInDom(data) {
+    let $output = $('#output');
+    $output.html("");
+    // Add Each Family Member to the dom
+    let outputString = "";
+    data.forEach(function(member) {
+        outputString += "<div class='row'>";
+            outputString += `<div class="col-xs-4 col-md-4" id="fm-name" data-fbid="${member.id}">${member.name}</div>`;
+            outputString += `<div class="col-xs-4 col-md-4">${member.age}</div>`;
+            outputString += `<div class="col-xs-4 col-md-4">${member.gender}<button type="button" class="btn btn-danger fright">Delete</button></div>`;
+        outputString += "</div>";
+    });
+    $('.output').append(outputString);
+}
 
 $(document).ready(function() {
     // get firebase credentials from apiKeys.json
     fbCredentials.firebaseCredentials().then(function(keys) {
         apiKeys = keys;
-        console.log("apiKeys", apiKeys);
         firebase.initializeApp(apiKeys);
         getFamilyMembers(apiKeys);
     });
-
-    function getFamilyMembers(apiKeys) {
-        todos.getTodos(apiKeys).then(function(fbFamily) {
-            familyMembers = fbFamily;
-            putFamilyMembersInDom(familyMembers);
-        });
-    }
-
-    function putFamilyMembersInDom(data) {
-        console.log("data", data);
-        let $output = $('#output');
-        // Add Each Family Member to the dom
-        let outputString = "";
-        data.forEach(function(member) {
-            outputString += "<div class='row'>";
-                outputString += `<div class="col-xs-4 col-md-4" id="fm-name" data-fbid="${member.id}">${member.name}</div>`;
-                outputString += `<div class="col-xs-4 col-md-4">${member.age}</div>`;
-                outputString += `<div class="col-xs-4 col-md-4">${member.gender}<button type="button" class="btn btn-danger fright">Delete</button></div>`;
-            outputString += "</div>";
-        });
-        $('.output').append(outputString);
-    }
-
-
-
-
-
-
-
-
-
-
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // function putTodoInDOM (){
 //     FbAPI.getTodos(apiKeys, uid).then(function(items){
 //         console.log("items from FB", items);
