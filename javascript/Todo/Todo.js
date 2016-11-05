@@ -6,8 +6,6 @@
 // const getTodo = require("./getTodo");
 
 function addTodo(apiKeys, newItem){
-    console.log("apiKeys", apiKeys);
-    console.log("newItem", newItem);
     return new Promise((resolve, reject) => {
         $.ajax({
             method:  'POST',
@@ -57,7 +55,6 @@ function getTodos(apiKeys){
     return new Promise((resolve, reject) => {
         $.ajax({
             method:  'GET',
-            // url:`${apiKeys.databaseURL}/items.json?orderBy="uid"&equalTo="${uid}"`
             url:`${apiKeys.databaseURL}/family.json`
         }).then((response) => {
             let items = [];

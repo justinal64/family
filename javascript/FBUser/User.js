@@ -7,7 +7,7 @@ function addUser(apiKeys, newUser) {
     return new Promise((resolve, reject) => {
         $.ajax({
             method:  'POST',
-            url:`${apiKeys.databaseURL}/users.json`,
+            url:`${apiKeys.databaseURL}/family.json`,
             data: JSON.stringify(newUser),
             dataType: 'json'
         }).then((response) => {
